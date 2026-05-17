@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auth API — Endpoint Documentation</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6fb;color:#222;padding:30px 20px;line-height:1.7;}
+    .container{max-width:960px;margin:auto;background:#fff;border-radius:14px;padding:44px 52px;box-shadow:0 4px 28px rgba(0,0,0,0.10);}
+    h1{font-size:2rem;color:#1a237e;border-bottom:3px solid #3949ab;padding-bottom:10px;margin-bottom:6px;}
+    .meta{color:#666;font-size:0.95rem;margin-bottom:10px;}
+    .base-url{background:#e8eaf6;border-radius:7px;padding:10px 16px;font-family:'Courier New',monospace;font-size:0.95rem;margin-bottom:32px;display:inline-block;}
+    .endpoint-card{border:1px solid #e0e0e0;border-radius:10px;margin-bottom:28px;overflow:hidden;}
+    .card-header{display:flex;align-items:center;gap:14px;padding:14px 20px;background:#f8f9ff;border-bottom:1px solid #e0e0e0;}
+    .method{font-weight:bold;font-size:0.88rem;padding:4px 12px;border-radius:5px;letter-spacing:1px;}
+    .post{background:#1976d2;color:#fff;}
+    .get{background:#388e3c;color:#fff;}
+    .endpoint-path{font-family:'Courier New',monospace;font-size:1rem;color:#1a237e;font-weight:600;}
+    .card-tag{margin-left:auto;background:#e8eaf6;color:#3949ab;font-size:0.8rem;padding:3px 10px;border-radius:20px;font-weight:600;}
+    .card-body{padding:18px 22px;}
+    .desc{font-size:0.97rem;color:#333;margin-bottom:14px;}
+    .section-label{font-size:0.8rem;font-weight:700;text-transform:uppercase;color:#888;letter-spacing:1px;margin-bottom:6px;margin-top:14px;}
+    table{width:100%;border-collapse:collapse;font-size:0.92rem;margin-bottom:6px;}
+    th{background:#3949ab;color:#fff;padding:8px 12px;text-align:left;}
+    td{padding:7px 12px;border-bottom:1px solid #eee;}
+    tr:last-child td{border-bottom:none;}
+    tr:nth-child(even){background:#f5f7ff;}
+    .required{color:#e53935;font-size:0.8rem;font-weight:bold;}
+    .optional{color:#888;font-size:0.8rem;}
+    .code{background:#f0f4ff;border:1px solid #c5cae9;border-radius:6px;padding:12px 16px;font-family:'Courier New',monospace;font-size:0.88rem;white-space:pre;margin-top:6px;overflow-x:auto;}
+    .responses{margin-top:14px;}
+    .res-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;}
+    .status{font-family:'Courier New',monospace;font-weight:bold;font-size:0.88rem;padding:3px 10px;border-radius:5px;white-space:nowrap;}
+    .s200{background:#e8f5e9;color:#2e7d32;}
+    .s400{background:#fff3e0;color:#e65100;}
+    .s403{background:#fce4ec;color:#c62828;}
+    .s404{background:#fce4ec;color:#c62828;}
+    .res-body{font-family:'Courier New',monospace;font-size:0.87rem;background:#f8f8f8;border-radius:5px;padding:4px 10px;flex:1;}
+    hr{border:none;border-top:2px dashed #c5cae9;margin:32px 0;}
+    .group-title{font-size:1.2rem;color:#283593;font-weight:700;margin:32px 0 14px 0;padding-left:10px;border-left:4px solid #3949ab;}
+    @media print{body{background:#fff;padding:0;}.container{box-shadow:none;padding:20px;}}
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <h1>🔐 Auth API — Endpoint Documentation</h1>
+  <p class="meta">Framework: FastAPI &nbsp;|&nbsp; Database: MongoDB &nbsp;|&nbsp; Auth: OTP + JWT</p>
+  <div class="base-url">Base URL: &nbsp;<strong>http://localhost:8000</strong> &nbsp;(or your deployed URL)</div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- HEALTH CHECK -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="group-title">🟢 Health Check</div>
+
+  <div class="endpoint-card">
+    <div class="card-header">
+      <span class="method get">GET</span>
+      <span class="endpoint-path">/</span>
+      <span class="card-tag">Health</span>
+    </div>
+    <div class="card-body">
+      <p class="desc">Check karo ki API server chal raha hai ya nahi.</p>
+      <div class="section-label">Request Body</div>
+      <p style="color:#888;font-size:0.9rem;">None — koi body nahi chahiye</p>
+      <div class="responses">
+        <div class="section-label">Responses</div>
+        <div class="res-row">
+          <span class="status s200">200 OK</span>
+          <span class="res-body">{"message": "Auth API is running"}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- REGISTRATION -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="group-title">📝 Registration</div>
+
+  <!-- POST /auth/register -->
+  <div class="endpoint-card">
+    <div class="card-header">
+      <span class="method post">POST</span>
+      <span class="endpoint-path">/auth/register</span>
+      <span class="card-tag">Auth</span>
+    </div>
+    <div class="card-body">
+      <p class="desc">Naya user register karo. Success hone pe OTP user ke email pe bheja jata hai.</p>
+      <div class="section-label">Request Body (JSON)</div>
+      <table>
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td>name</td><td>string</td><td><span class="required">Required</span></td><td>User ka poora naam</td></tr>
+        <tr><td>email</td><td>string (email)</td><td><span class="required">Required</span></td><td>Valid email address</td></tr>
+        <tr><td>password</td><td>string</td><td><span class="required">Required</span></td><td>Account ka password</td></tr>
+      </table>
+      <div class="code">{
+  "name": "Ali Khan",
+  "email": "ali@example.com",
+  "password": "mypassword123"
+}</div>
+      <div class="responses">
+        <div class="section-label">Responses</div>
+        <div class="res-row">
+          <span class="status s200">200 OK</span>
+          <span class="res-body">{"message": "Registration successful. OTP sent to your email."}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s400">400</span>
+          <span class="res-body">{"detail": "Email already registered"}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST /auth/register/verify-otp -->
+  <div class="endpoint-card">
+    <div class="card-header">
+      <span class="method post">POST</span>
+      <span class="endpoint-path">/auth/register/verify-otp</span>
+      <span class="card-tag">Auth</span>
+    </div>
+    <div class="card-body">
+      <p class="desc">Registration ke baad email pe aaya OTP verify karo. Verify hone pe account activate ho jata hai.</p>
+      <div class="section-label">Request Body (JSON)</div>
+      <table>
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td>email</td><td>string (email)</td><td><span class="required">Required</span></td><td>Registered email address</td></tr>
+        <tr><td>otp</td><td>string</td><td><span class="required">Required</span></td><td>6-digit OTP jo email pe aaya</td></tr>
+      </table>
+      <div class="code">{
+  "email": "ali@example.com",
+  "otp": "483920"
+}</div>
+      <div class="responses">
+        <div class="section-label">Responses</div>
+        <div class="res-row">
+          <span class="status s200">200 OK</span>
+          <span class="res-body">{"message": "Account verified successfully"}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s404">404</span>
+          <span class="res-body">{"detail": "User not found"}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s400">400</span>
+          <span class="res-body">{"detail": "Account already verified"}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s400">400</span>
+          <span class="res-body">{"detail": "Invalid or expired OTP"}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LOGIN -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="group-title">🔵 Login (OTP-based)</div>
+
+  <!-- POST /auth/login -->
+  <div class="endpoint-card">
+    <div class="card-header">
+      <span class="method post">POST</span>
+      <span class="endpoint-path">/auth/login</span>
+      <span class="card-tag">Auth</span>
+    </div>
+    <div class="card-body">
+      <p class="desc">Login ke liye OTP request karo. Sirf email chahiye — OTP email pe bheja jayega.</p>
+      <div class="section-label">Request Body (JSON)</div>
+      <table>
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td>email</td><td>string (email)</td><td><span class="required">Required</span></td><td>Registered aur verified email</td></tr>
+      </table>
+      <div class="code">{
+  "email": "ali@example.com"
+}</div>
+      <div class="responses">
+        <div class="section-label">Responses</div>
+        <div class="res-row">
+          <span class="status s200">200 OK</span>
+          <span class="res-body">{"message": "OTP sent to your email for login"}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s404">404</span>
+          <span class="res-body">{"detail": "User not found"}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s403">403</span>
+          <span class="res-body">{"detail": "Account not verified"}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST /auth/login/verify-otp -->
+  <div class="endpoint-card">
+    <div class="card-header">
+      <span class="method post">POST</span>
+      <span class="endpoint-path">/auth/login/verify-otp</span>
+      <span class="card-tag">Auth</span>
+    </div>
+    <div class="card-body">
+      <p class="desc">Login OTP verify karo. Valid hone pe JWT Access Token return hota hai — ise aage ke requests mein use karo.</p>
+      <div class="section-label">Request Body (JSON)</div>
+      <table>
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td>email</td><td>string (email)</td><td><span class="required">Required</span></td><td>Registered email address</td></tr>
+        <tr><td>otp</td><td>string</td><td><span class="required">Required</span></td><td>6-digit OTP jo email pe aaya</td></tr>
+      </table>
+      <div class="code">{
+  "email": "ali@example.com",
+  "otp": "739201"
+}</div>
+      <div class="responses">
+        <div class="section-label">Responses</div>
+        <div class="res-row">
+          <span class="status s200">200 OK</span>
+          <span class="res-body">{"access_token": "eyJhbGci....", "token_type": "bearer"}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s404">404</span>
+          <span class="res-body">{"detail": "User not found"}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s400">400</span>
+          <span class="res-body">{"detail": "Invalid or expired OTP"}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- FORGOT PASSWORD -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="group-title">🔴 Forgot Password</div>
+
+  <!-- POST /auth/forgot-password -->
+  <div class="endpoint-card">
+    <div class="card-header">
+      <span class="method post">POST</span>
+      <span class="endpoint-path">/auth/forgot-password</span>
+      <span class="card-tag">Auth</span>
+    </div>
+    <div class="card-body">
+      <p class="desc">Password reset ke liye OTP request karo. OTP email pe bheja jayega.</p>
+      <div class="section-label">Request Body (JSON)</div>
+      <table>
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td>email</td><td>string (email)</td><td><span class="required">Required</span></td><td>Account ka email address</td></tr>
+      </table>
+      <div class="code">{
+  "email": "ali@example.com"
+}</div>
+      <div class="responses">
+        <div class="section-label">Responses</div>
+        <div class="res-row">
+          <span class="status s200">200 OK</span>
+          <span class="res-body">{"message": "Password reset OTP sent to your email"}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s404">404</span>
+          <span class="res-body">{"detail": "User not found"}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST /auth/forgot-password/reset -->
+  <div class="endpoint-card">
+    <div class="card-header">
+      <span class="method post">POST</span>
+      <span class="endpoint-path">/auth/forgot-password/reset</span>
+      <span class="card-tag">Auth</span>
+    </div>
+    <div class="card-body">
+      <p class="desc">OTP verify karke naya password set karo.</p>
+      <div class="section-label">Request Body (JSON)</div>
+      <table>
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td>email</td><td>string (email)</td><td><span class="required">Required</span></td><td>Account ka email address</td></tr>
+        <tr><td>otp</td><td>string</td><td><span class="required">Required</span></td><td>6-digit OTP jo email pe aaya</td></tr>
+        <tr><td>new_password</td><td>string</td><td><span class="required">Required</span></td><td>Naya password jo set karna hai</td></tr>
+      </table>
+      <div class="code">{
+  "email": "ali@example.com",
+  "otp": "192837",
+  "new_password": "newpassword456"
+}</div>
+      <div class="responses">
+        <div class="section-label">Responses</div>
+        <div class="res-row">
+          <span class="status s200">200 OK</span>
+          <span class="res-body">{"message": "Password reset successfully"}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s404">404</span>
+          <span class="res-body">{"detail": "User not found"}</span>
+        </div>
+        <div class="res-row">
+          <span class="status s400">400</span>
+          <span class="res-body">{"detail": "Invalid or expired OTP"}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
+  <!-- NOTES -->
+  <div style="background:#e8eaf6;border-radius:8px;padding:18px 22px;margin-top:10px;">
+    <strong style="color:#283593;">📌 General Notes</strong>
+    <ul style="margin-top:10px;margin-left:20px;">
+      <li>Saare endpoints <code>Content-Type: application/json</code> expect karte hain</li>
+      <li>OTP sirf <strong>10 minutes</strong> valid hota hai — expire hone pe naya mangwana hoga</li>
+      <li>JWT token <strong>30 minutes</strong> mein expire hota hai</li>
+      <li>Login ke baad mila <code>access_token</code> protected routes mein <code>Authorization: Bearer &lt;token&gt;</code> header mein bhejo</li>
+      <li>Interactive docs: <code>http://localhost:8000/docs</code> (Swagger UI)</li>
+    </ul>
+  </div>
+
+  <p style="margin-top:32px;color:#aaa;font-size:0.85rem;text-align:center;">
+    Auth API Documentation — Generated by Kiro
+  </p>
+</div>
+</body>
+</html>

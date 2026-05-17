@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Backend Python Auth - Project Explanation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6fb;
+      color: #222;
+      line-height: 1.8;
+      padding: 30px 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px 50px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    }
+    h1 {
+      font-size: 2rem;
+      color: #1a237e;
+      border-bottom: 3px solid #3949ab;
+      padding-bottom: 10px;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+    h2 {
+      font-size: 1.35rem;
+      color: #283593;
+      margin-top: 36px;
+      margin-bottom: 10px;
+      border-left: 5px solid #3949ab;
+      padding-left: 12px;
+    }
+    h3 {
+      font-size: 1.1rem;
+      color: #1565c0;
+      margin-top: 20px;
+      margin-bottom: 6px;
+    }
+    p { margin-bottom: 10px; }
+    ul { margin: 8px 0 12px 24px; }
+    li { margin-bottom: 6px; }
+    .badge {
+      display: inline-block;
+      background: #e8eaf6;
+      color: #283593;
+      border-radius: 5px;
+      padding: 2px 10px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-right: 6px;
+    }
+    .code-block {
+      background: #f0f4ff;
+      border: 1px solid #c5cae9;
+      border-radius: 7px;
+      padding: 14px 18px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.92rem;
+      margin: 10px 0 16px 0;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .env-table, .model-table, .api-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px 0;
+      font-size: 0.95rem;
+    }
+    .env-table th, .model-table th, .api-table th {
+      background: #3949ab;
+      color: #fff;
+      padding: 9px 14px;
+      text-align: left;
+    }
+    .env-table td, .model-table td, .api-table td {
+      padding: 8px 14px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .env-table tr:nth-child(even), .model-table tr:nth-child(even), .api-table tr:nth-child(even) {
+      background: #f5f7ff;
+    }
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .step-num {
+      background: #3949ab;
+      color: #fff;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      flex-shrink: 0;
+      font-size: 1rem;
+    }
+    .step-content { flex: 1; }
+    .highlight { background: #fff9c4; padding: 2px 6px; border-radius: 4px; }
+    .section-divider {
+      border: none;
+      border-top: 2px dashed #c5cae9;
+      margin: 32px 0;
+    }
+    .folder-tree {
+      background: #f8f9ff;
+      border: 1px solid #c5cae9;
+      border-radius: 7px;
+      padding: 14px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.93rem;
+      line-height: 2;
+    }
+    .warning-box {
+      background: #fff3e0;
+      border-left: 5px solid #fb8c00;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 12px 0;
+      font-size: 0.95rem;
+    }
+    .info-box {
+      background: #e3f2fd;
+      border-left: 5px solid #1976d2;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 12px 0;
+      font-size: 0.95rem;
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .container { box-shadow: none; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <h1>🔐 Backend Python Auth — Project Explanation</h1>
+  <p class="subtitle">Hinglish mein complete project documentation — PDF ke liye ready</p>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>1. Project Kya Hai? (Overview)</h2>
+  <p>
+    Yeh ek <strong>FastAPI</strong> based <strong>Authentication Backend</strong> hai jo Python mein likha gaya hai.
+    Iska kaam hai users ko <strong>register</strong> karna, <strong>OTP se verify</strong> karna, <strong>login</strong> karna,
+    aur <strong>password reset</strong> karna — sab kuch email OTP ke through.
+  </p>
+  <p>
+    Database ke liye <strong>MongoDB Atlas</strong> (cloud database) use kiya gaya hai aur
+    emails bhejne ke liye <strong>Gmail SMTP</strong> use hota hai.
+    Login ke baad user ko ek <strong>JWT Token</strong> milta hai jo uski identity prove karta hai.
+  </p>
+
+  <div class="info-box">
+    💡 Simple shabdon mein: Jaise kisi app mein aap email se sign up karte ho, OTP aata hai, verify karte ho, phir login karte ho — exactly wahi system yahan bana hai.
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>2. Technologies Used (Kya Kya Use Kiya)</h2>
+  <ul>
+    <li><span class="badge">FastAPI</span> — Python ka fast web framework, API banane ke liye</li>
+    <li><span class="badge">MongoDB Atlas</span> — Cloud database, data store karne ke liye</li>
+    <li><span class="badge">Motor</span> — MongoDB ka async driver Python ke liye</li>
+    <li><span class="badge">Pydantic</span> — Request/Response data validate karne ke liye</li>
+    <li><span class="badge">Passlib + bcrypt</span> — Password ko securely hash karne ke liye</li>
+    <li><span class="badge">python-jose</span> — JWT token banane aur decode karne ke liye</li>
+    <li><span class="badge">fastapi-mail</span> — Email bhejne ke liye</li>
+    <li><span class="badge">python-dotenv</span> — .env file se secrets load karne ke liye</li>
+    <li><span class="badge">Uvicorn</span> — FastAPI server run karne ke liye</li>
+  </ul>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>3. Project Structure (Folder/File Structure)</h2>
+  <div class="folder-tree">
+backend_python_auth/
+├── .env                          ← Secret keys aur config
+├── requirements.txt              ← Saari dependencies
+└── app/
+    ├── main.py                   ← App ka entry point
+    ├── __init__.py
+    ├── routes/
+    │   └── auth_routes.py        ← Saare API endpoints define hain yahan
+    ├── controllers/
+    │   └── auth_controller.py    ← Business logic (kya karna hai)
+    ├── models/
+    │   └── user_model.py         ← MongoDB document ka structure
+    ├── schemas/
+    │   └── user_schema.py        ← Request data ka format (validation)
+    ├── database/
+    │   └── connection.py         ← MongoDB se connection
+    └── utils/
+        ├── email_service.py      ← Email bhejne ka kaam
+        ├── hash_password.py      ← Password hash/verify
+        ├── jwt_handler.py        ← JWT token banana/decode karna
+        └── otp.py                ← OTP generate karna aur validate karna
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>4. .env File — Secrets aur Configuration</h2>
+  <p>
+    <code>.env</code> file mein saare <strong>sensitive values</strong> hote hain jo code mein directly nahi likhte.
+    Yeh file <strong>gitignore</strong> mein honi chahiye taaki GitHub pe upload na ho.
+  </p>
+  <table class="env-table">
+    <tr>
+      <th>Variable</th>
+      <th>Value (Example)</th>
+      <th>Kaam Kya Hai</th>
+    </tr>
+    <tr>
+      <td>DATABASE_URL</td>
+      <td>mongodb+srv://user:pass@cluster.../auth_db</td>
+      <td>MongoDB Atlas ka connection string — database se connect karne ke liye</td>
+    </tr>
+    <tr>
+      <td>SECRET_KEY</td>
+      <td>mysecret</td>
+      <td>JWT token sign karne ke liye use hota hai — yeh secret hona chahiye</td>
+    </tr>
+    <tr>
+      <td>ALGORITHM</td>
+      <td>HS256</td>
+      <td>JWT token mein use hone wala encryption algorithm</td>
+    </tr>
+    <tr>
+      <td>ACCESS_TOKEN_EXPIRE_MINUTES</td>
+      <td>30</td>
+      <td>JWT token kitne minutes mein expire hoga (30 min)</td>
+    </tr>
+    <tr>
+      <td>MAIL_USERNAME</td>
+      <td>example@gmail.com</td>
+      <td>Gmail account jisse OTP emails bheje jayenge</td>
+    </tr>
+    <tr>
+      <td>MAIL_PASSWORD</td>
+      <td>app-specific-password</td>
+      <td>Gmail App Password (normal password nahi, Google se generate karna hota hai)</td>
+    </tr>
+    <tr>
+      <td>MAIL_FROM</td>
+      <td>example@gmail.com</td>
+      <td>Email mein "From" field mein yahi address dikhega</td>
+    </tr>
+    <tr>
+      <td>MAIL_PORT</td>
+      <td>587</td>
+      <td>Gmail SMTP ka port number (587 = TLS)</td>
+    </tr>
+    <tr>
+      <td>MAIL_SERVER</td>
+      <td>smtp.gmail.com</td>
+      <td>Gmail ka SMTP server address</td>
+    </tr>
+  </table>
+
+  <div class="warning-box">
+    ⚠️ <strong>Important:</strong> .env file ko kabhi bhi GitHub pe push mat karo. Isme real passwords aur secret keys hoti hain.
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>5. Database Model — User Document</h2>
+  <p>
+    MongoDB mein har user ek <strong>document</strong> ke roop mein store hota hai.
+    Yeh document <code>user_model.py</code> mein define kiya gaya hai.
+  </p>
+  <table class="model-table">
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>String</td>
+      <td>User ka naam</td>
+    </tr>
+    <tr>
+      <td>email</td>
+      <td>String</td>
+      <td>User ka email address (unique identifier)</td>
+    </tr>
+    <tr>
+      <td>hashed_password</td>
+      <td>String</td>
+      <td>Password ka bcrypt hash — plain password kabhi store nahi hota</td>
+    </tr>
+    <tr>
+      <td>is_verified</td>
+      <td>Boolean</td>
+      <td>Account verify hua ya nahi (default: False)</td>
+    </tr>
+    <tr>
+      <td>otp</td>
+      <td>String / None</td>
+      <td>Current active OTP (use hone ke baad None ho jata hai)</td>
+    </tr>
+    <tr>
+      <td>otp_expires_at</td>
+      <td>DateTime / None</td>
+      <td>OTP kab expire hoga (10 minutes baad)</td>
+    </tr>
+    <tr>
+      <td>created_at</td>
+      <td>DateTime</td>
+      <td>Account kab bana — automatically set hota hai</td>
+    </tr>
+  </table>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>6. Schemas — Request Validation</h2>
+  <p>
+    <code>user_schema.py</code> mein Pydantic models hain jo define karte hain ki
+    API ko request mein <strong>kya data chahiye</strong>. Agar galat data aaya toh FastAPI automatically error return karta hai.
+  </p>
+  <table class="model-table">
+    <tr>
+      <th>Schema Class</th>
+      <th>Fields</th>
+      <th>Kahan Use Hota Hai</th>
+    </tr>
+    <tr>
+      <td>RegisterRequest</td>
+      <td>name, email, password</td>
+      <td>New user register karne ke liye</td>
+    </tr>
+    <tr>
+      <td>VerifyOTPRequest</td>
+      <td>email, otp</td>
+      <td>Registration ke baad OTP verify karne ke liye</td>
+    </tr>
+    <tr>
+      <td>LoginRequest</td>
+      <td>email</td>
+      <td>Login OTP request karne ke liye (sirf email chahiye)</td>
+    </tr>
+    <tr>
+      <td>LoginVerifyRequest</td>
+      <td>email, otp</td>
+      <td>Login OTP verify karke JWT token lene ke liye</td>
+    </tr>
+    <tr>
+      <td>ForgotPasswordRequest</td>
+      <td>email</td>
+      <td>Password reset OTP mangwane ke liye</td>
+    </tr>
+    <tr>
+      <td>ResetPasswordRequest</td>
+      <td>email, otp, new_password</td>
+      <td>OTP verify karke naya password set karne ke liye</td>
+    </tr>
+  </table>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>7. API Endpoints (Routes)</h2>
+  <p>Saare routes <code>/auth</code> prefix ke saath hain. Yeh sab <code>POST</code> requests hain.</p>
+  <table class="api-table">
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th>Kaam</th>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/auth/register</td>
+      <td>Naya user register karo — OTP email pe aayega</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/auth/register/verify-otp</td>
+      <td>Registration OTP verify karo — account activate hoga</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/auth/login</td>
+      <td>Login ke liye OTP request karo (sirf email bhejo)</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/auth/login/verify-otp</td>
+      <td>Login OTP verify karo — JWT token milega</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/auth/forgot-password</td>
+      <td>Password reset ke liye OTP mangwao</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/auth/forgot-password/reset</td>
+      <td>OTP verify karke naya password set karo</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/</td>
+      <td>Health check — API chal rahi hai ya nahi check karo</td>
+    </tr>
+  </table>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>8. Complete Flow — Step by Step</h2>
+
+  <h3>🟢 Registration Flow</h3>
+  <div class="flow-step">
+    <div class="step-num">1</div>
+    <div class="step-content">User <code>POST /auth/register</code> pe <span class="highlight">name, email, password</span> bhejta hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">2</div>
+    <div class="step-content">Controller check karta hai — kya yeh email pehle se registered hai? Agar haan toh error return karta hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">3</div>
+    <div class="step-content">Password ko <strong>bcrypt</strong> se hash kiya jata hai (plain password kabhi save nahi hota).</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">4</div>
+    <div class="step-content">6-digit <strong>OTP generate</strong> hota hai, 10 minute ki expiry ke saath MongoDB mein save hota hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">5</div>
+    <div class="step-content">OTP user ke email pe <strong>Gmail SMTP</strong> ke through bheja jata hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">6</div>
+    <div class="step-content">User <code>POST /auth/register/verify-otp</code> pe email + OTP bhejta hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">7</div>
+    <div class="step-content">OTP match kiya jata hai aur expiry check hoti hai. Sahi hone pe <code>is_verified = True</code> ho jata hai. Account activate!</div>
+  </div>
+
+  <h3>🔵 Login Flow (OTP-based)</h3>
+  <div class="flow-step">
+    <div class="step-num">1</div>
+    <div class="step-content">User <code>POST /auth/login</code> pe sirf <span class="highlight">email</span> bhejta hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">2</div>
+    <div class="step-content">System check karta hai — user exist karta hai? Account verified hai? Nahi toh error.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">3</div>
+    <div class="step-content">Naya OTP generate hokar email pe bheja jata hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">4</div>
+    <div class="step-content">User <code>POST /auth/login/verify-otp</code> pe email + OTP bhejta hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">5</div>
+    <div class="step-content">OTP valid hone pe <strong>JWT Access Token</strong> generate hokar return kiya jata hai. Ab user logged in hai!</div>
+  </div>
+
+  <h3>🔴 Forgot Password Flow</h3>
+  <div class="flow-step">
+    <div class="step-num">1</div>
+    <div class="step-content">User <code>POST /auth/forgot-password</code> pe <span class="highlight">email</span> bhejta hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">2</div>
+    <div class="step-content">System user dhundta hai, OTP generate karke email pe bhejta hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">3</div>
+    <div class="step-content">User <code>POST /auth/forgot-password/reset</code> pe <span class="highlight">email + OTP + new_password</span> bhejta hai.</div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">4</div>
+    <div class="step-content">OTP verify hone ke baad naya password hash hokar MongoDB mein save ho jata hai. Password reset complete!</div>
+  </div>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>9. Utility Files — Kya Kya Karte Hain</h2>
+
+  <h3>🔑 hash_password.py</h3>
+  <p>
+    <strong>bcrypt</strong> algorithm use karke password ko hash karta hai.
+    <code>hash_password()</code> plain password leke hashed string return karta hai.
+    <code>verify_password()</code> plain aur hashed password compare karta hai.
+    Yeh isliye zaroori hai kyunki database mein kabhi plain password nahi rakhte.
+  </p>
+
+  <h3>🔢 otp.py</h3>
+  <p>
+    <code>generate_otp()</code> — 100000 se 999999 ke beech random 6-digit number generate karta hai.<br/>
+    <code>otp_expiry()</code> — current time + 10 minutes ka datetime return karta hai.<br/>
+    <code>is_otp_valid()</code> — stored OTP aur user ka OTP match karta hai, aur expiry bhi check karta hai.
+  </p>
+
+  <h3>📧 email_service.py</h3>
+  <p>
+    <strong>fastapi-mail</strong> library use karke Gmail SMTP se email bhejta hai.
+    <code>send_otp_email()</code> function email address, OTP aur subject leke email bhej deta hai.
+    Email body mein OTP aur "valid for 10 minutes" message hota hai.
+  </p>
+
+  <h3>🎫 jwt_handler.py</h3>
+  <p>
+    <code>create_access_token()</code> — user ka data (email, name) leke JWT token banata hai.
+    Token mein expiry time bhi embed hoti hai (30 minutes).<br/>
+    <code>decode_token()</code> — JWT token ko decode karke original data nikalta hai.
+    Agar token invalid ya expired ho toh empty dict return karta hai.
+  </p>
+
+  <h3>🗄️ connection.py</h3>
+  <p>
+    <strong>Motor</strong> (async MongoDB driver) use karke MongoDB Atlas se connection establish karta hai.
+    <code>DATABASE_URL</code> .env file se load hoti hai.
+    <code>users_collection</code> variable globally available hai — saare controllers isko import karke use karte hain.
+  </p>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>10. Security Features</h2>
+  <ul>
+    <li><strong>Password Hashing:</strong> bcrypt se hash hota hai — brute force attacks se protection</li>
+    <li><strong>OTP Expiry:</strong> OTP sirf 10 minutes valid hota hai — replay attacks se protection</li>
+    <li><strong>OTP Cleanup:</strong> Use hone ke baad OTP database se hata diya jata hai</li>
+    <li><strong>JWT Token:</strong> Stateless authentication — server pe session store nahi hota</li>
+    <li><strong>Email Verification:</strong> Bina OTP verify kiye login nahi ho sakta</li>
+    <li><strong>Environment Variables:</strong> Secrets .env mein hain, code mein hardcoded nahi</li>
+  </ul>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>11. Requirements (Dependencies)</h2>
+  <div class="code-block">fastapi          → Web framework
+uvicorn          → ASGI server (FastAPI run karne ke liye)
+motor            → Async MongoDB driver
+pymongo          → MongoDB base library
+python-dotenv    → .env file load karne ke liye
+passlib[bcrypt]  → Password hashing
+bcrypt==4.0.1    → bcrypt ka specific version
+python-jose[cryptography] → JWT token handling
+fastapi-mail     → Email bhejne ke liye
+pydantic[email]  → Email validation support</div>
+
+  <p>Install karne ke liye:</p>
+  <div class="code-block">pip install -r requirements.txt</div>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>12. Server Kaise Run Karein</h2>
+  <div class="code-block">cd backend_python_auth
+uvicorn app.main:app --reload</div>
+  <p>Server start hone ke baad:</p>
+  <ul>
+    <li>API: <code>http://localhost:8000</code></li>
+    <li>Swagger Docs (interactive): <code>http://localhost:8000/docs</code></li>
+    <li>ReDoc: <code>http://localhost:8000/redoc</code></li>
+  </ul>
+
+  <hr class="section-divider"/>
+
+  <!-- ───────────────────────────────────────────── -->
+  <h2>13. Architecture Summary (Ek Nazar Mein)</h2>
+  <div class="info-box">
+    <strong>Request aata hai</strong> → <strong>Route</strong> (auth_routes.py) receive karta hai →
+    <strong>Schema</strong> (user_schema.py) validate karta hai →
+    <strong>Controller</strong> (auth_controller.py) logic run karta hai →
+    <strong>Database</strong> (MongoDB) se data read/write hota hai →
+    <strong>Utils</strong> (OTP, Email, JWT, Hash) helper kaam karte hain →
+    <strong>Response</strong> user ko wapas jata hai
+  </div>
+
+  <p style="margin-top: 30px; color: #888; font-size: 0.88rem; text-align: center;">
+    Generated by Kiro — Backend Python Auth Project Documentation
+  </p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Python Full Guide — Bachon ke liye Hinglish mein</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Segoe UI',Arial,sans-serif; background:#f0f4ff; color:#222; line-height:1.9; padding:30px 20px; }
+    .container { max-width:950px; margin:auto; background:#fff; border-radius:14px; padding:44px 52px; box-shadow:0 4px 28px rgba(0,0,0,0.10); }
+    h1 { font-size:2rem; color:#1a237e; border-bottom:3px solid #3949ab; padding-bottom:10px; margin-bottom:6px; }
+    .subtitle { color:#666; font-size:1rem; margin-bottom:32px; }
+    h2 { font-size:1.35rem; color:#283593; margin-top:38px; margin-bottom:10px; border-left:5px solid #3949ab; padding-left:12px; }
+    h3 { font-size:1.08rem; color:#1565c0; margin-top:22px; margin-bottom:6px; }
+    p { margin-bottom:10px; }
+    ul { margin:8px 0 12px 24px; }
+    li { margin-bottom:6px; }
+    .code { background:#f0f4ff; border:1px solid #c5cae9; border-radius:7px; padding:14px 18px; font-family:'Courier New',monospace; font-size:0.93rem; margin:10px 0 16px 0; white-space:pre-wrap; }
+    .output { background:#e8f5e9; border:1px solid #a5d6a7; border-radius:7px; padding:10px 16px; font-family:'Courier New',monospace; font-size:0.9rem; margin:-8px 0 16px 0; }
+    .info { background:#e3f2fd; border-left:5px solid #1976d2; padding:12px 16px; border-radius:6px; margin:12px 0; }
+    .tip { background:#fff9c4; border-left:5px solid #f9a825; padding:12px 16px; border-radius:6px; margin:12px 0; }
+    .warn { background:#fce4ec; border-left:5px solid #e91e63; padding:12px 16px; border-radius:6px; margin:12px 0; }
+    hr { border:none; border-top:2px dashed #c5cae9; margin:34px 0; }
+    .badge { display:inline-block; background:#e8eaf6; color:#283593; border-radius:5px; padding:2px 10px; font-size:0.85rem; font-weight:bold; margin-right:5px; }
+    table { width:100%; border-collapse:collapse; margin:14px 0 20px 0; font-size:0.94rem; }
+    th { background:#3949ab; color:#fff; padding:9px 14px; text-align:left; }
+    td { padding:8px 14px; border-bottom:1px solid #e0e0e0; }
+    tr:nth-child(even) { background:#f5f7ff; }
+    @media print { body{background:#fff;padding:0;} .container{box-shadow:none;padding:20px;} }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🐍 Python Seekho — Bilkul Scratch Se!</h1>
+  <p class="subtitle">10 saal ke bacche ke liye — Hinglish mein, easy language mein, examples ke saath</p>
+
+  <!-- SECTION 1 -->
+  <h2>1. Python Kya Hai?</h2>
+  <p>Python ek <strong>programming language</strong> hai — matlab ek tarika jisse tum computer ko instructions dete ho. Jaise tum apne dost ko bolte ho "yeh karo, woh karo" — waise hi Python mein computer ko bolte ho.</p>
+  <div class="info">💡 Python bahut easy hai kyunki iska syntax (likhne ka tarika) English jaisa hota hai. Isliye duniya mein sabse popular language hai beginners ke liye.</div>
+
+  <h2>2. Python Install Kaise Karein</h2>
+  <ul>
+    <li><a href="https://python.org">python.org</a> pe jao aur download karo</li>
+    <li>Install karte waqt <strong>"Add Python to PATH"</strong> checkbox zaroor tick karo</li>
+    <li>Terminal/CMD mein type karo: <code>python --version</code> — version dikhega toh install ho gaya</li>
+  </ul>
+
+  <hr/>
+
+  <!-- SECTION 3 -->
+  <h2>3. Python Basics — Syntax (Likhne ka Tarika)</h2>
+
+  <h3>📌 Print — Screen pe kuch dikhana</h3>
+  <div class="code">print("Hello, mera naam Python hai!")</div>
+  <div class="output">➜ Hello, mera naam Python hai!</div>
+
+  <h3>📌 Variables — Data store karna</h3>
+  <p>Variable ek dabba hai jisme tum koi bhi cheez rakh sakte ho.</p>
+  <div class="code">naam = "Ali"
+umar = 10
+height = 4.5
+is_student = True
+
+print(naam)   # Ali
+print(umar)   # 10</div>
+  <div class="tip">💡 Python mein variable ka type likhna nahi padta (jaise int, string) — Python khud samajh leta hai!</div>
+
+  <h3>📌 Data Types — Kitne tarah ka data</h3>
+  <table>
+    <tr><th>Type</th><th>Example</th><th>Matlab</th></tr>
+    <tr><td>str (String)</td><td>"Hello"</td><td>Text / words</td></tr>
+    <tr><td>int</td><td>10, 25, 100</td><td>Poore numbers</td></tr>
+    <tr><td>float</td><td>3.14, 9.8</td><td>Decimal numbers</td></tr>
+    <tr><td>bool</td><td>True / False</td><td>Haan ya Nahi</td></tr>
+    <tr><td>list</td><td>[1, 2, 3]</td><td>Items ki list</td></tr>
+    <tr><td>dict</td><td>{"naam": "Ali"}</td><td>Key-Value pairs</td></tr>
+  </table>
+
+  <h3>📌 If-Else — Condition check karna</h3>
+  <div class="code">umar = 10
+
+if umar >= 18:
+    print("Adult ho tum")
+elif umar >= 13:
+    print("Teenager ho tum")
+else:
+    print("Bacche ho tum")</div>
+  <div class="output">➜ Bacche ho tum</div>
+  <div class="warn">⚠️ Python mein indentation (spaces) bahut important hai! Har block 4 spaces se andar hona chahiye.</div>
+
+  <h3>📌 Loops — Baar baar kaam karna</h3>
+  <div class="code"># For loop
+for i in range(5):
+    print("Number:", i)
+
+# While loop
+count = 0
+while count < 3:
+    print("Count:", count)
+    count += 1</div>
+  <div class="output">➜ Number: 0, 1, 2, 3, 4
+➜ Count: 0, 1, 2</div>
+
+  <h3>📌 Functions — Ek kaam ko naam dena</h3>
+  <div class="code">def greet(naam):
+    return "Hello, " + naam + "!"
+
+result = greet("Ali")
+print(result)</div>
+  <div class="output">➜ Hello, Ali!</div>
+
+  <h3>📌 List — Items ki list</h3>
+  <div class="code">fruits = ["apple", "mango", "banana"]
+
+print(fruits[0])       # apple (pehla item)
+fruits.append("grape") # add karo
+print(len(fruits))     # 4 (total items)</div>
+
+  <h3>📌 Dictionary — Key-Value store</h3>
+  <div class="code">user = {
+    "naam": "Ali",
+    "email": "ali@gmail.com",
+    "umar": 10
+}
+
+print(user["naam"])    # Ali
+print(user["email"])   # ali@gmail.com</div>
+  <div class="info">💡 Dictionary bilkul MongoDB document jaisi hoti hai — key aur value pairs!</div>
+
+  <h3>📌 Classes — Apna blueprint banana</h3>
+  <div class="code">class Dog:
+    def __init__(self, naam):
+        self.naam = naam
+
+    def bark(self):
+        return self.naam + " says: Woof!"
+
+mera_dog = Dog("Tommy")
+print(mera_dog.bark())</div>
+  <div class="output">➜ Tommy says: Woof!</div>
+
+  <h3>📌 Async / Await — Ek saath kai kaam karna</h3>
+  <p>Yeh thoda advanced hai — jab koi kaam time leta hai (jaise database se data lana, email bhejna), toh <code>async</code> use karte hain taaki baaki kaam ruka na rahe.</p>
+  <div class="code">import asyncio
+
+async def email_bhejo():
+    print("Email bhej raha hoon...")
+    await asyncio.sleep(2)  # 2 second wait (simulate karna)
+    print("Email bhej diya!")
+
+asyncio.run(email_bhejo())</div>
+  <div class="tip">💡 Hamare project mein saare controller functions <code>async def</code> hain kyunki woh MongoDB aur email ke saath kaam karte hain.</div>
+
+  <h3>📌 Import — Doosri files ya libraries use karna</h3>
+  <div class="code">import os                        # built-in library
+from datetime import datetime    # specific cheez import karo
+from app.utils.otp import generate_otp  # apni file se import</div>
+
+  <hr/>
+
+  <!-- SECTION 4 — Libraries -->
+  <h2>4. Libraries — Kya Hoti Hain?</h2>
+  <p>Library matlab kisi ne pehle se code likh ke rakha hai — tum bas use karo, khud se likhne ki zaroorat nahi. Jaise tum school mein dictionary use karte ho — khud se words nahi banate.</p>
+  <div class="code">pip install fastapi   # library install karna</div>
+
+  <hr/>
+
+  <h2>5. Project mein Use Ki Gayi Libraries — Ek Ek Karke</h2>
+
+  <!-- FastAPI -->
+  <h3>🚀 FastAPI</h3>
+  <p><strong>Kya hai:</strong> Python ka ek web framework — matlab iska use karke tum API (backend server) bana sakte ho jo internet pe requests receive kare aur response de.</p>
+  <div class="code">from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")           # jab koi "/" pe aaye
+async def root():
+    return {"message": "Hello World"}  # yeh response milega</div>
+  <div class="info">💡 <code>@app.get("/")</code> ek decorator hai — matlab yeh function tab chalega jab koi us URL pe aayega.</div>
+
+  <!-- Uvicorn -->
+  <h3>⚡ Uvicorn</h3>
+  <p><strong>Kya hai:</strong> Yeh ek server hai jo FastAPI app ko run karta hai. Jaise ek dukaan ka darwaza — bina iske koi andar nahi aa sakta.</p>
+  <div class="code">uvicorn app.main:app --reload
+# app.main = app/main.py file
+# app = us file mein FastAPI object ka naam
+# --reload = code change hone pe auto restart</div>
+
+  <!-- Motor + PyMongo -->
+  <h3>🗄️ Motor + PyMongo</h3>
+  <p><strong>Kya hai:</strong> Motor ek async MongoDB driver hai — Python se MongoDB database se baat karne ka tarika. PyMongo iska base hai.</p>
+  <div class="code">from motor.motor_asyncio import AsyncIOMotorClient
+
+client = AsyncIOMotorClient("mongodb://localhost:27017")
+db = client["auth_db"]
+users = db["users"]
+
+# Data insert karna
+await users.insert_one({"naam": "Ali", "email": "ali@gmail.com"})
+
+# Data dhundna
+user = await users.find_one({"email": "ali@gmail.com"})
+
+# Data update karna
+await users.update_one({"email": "ali@gmail.com"}, {"$set": {"umar": 11}})</div>
+
+  <!-- python-dotenv -->
+  <h3>🔒 python-dotenv</h3>
+  <p><strong>Kya hai:</strong> .env file se secret values (passwords, keys) load karne ke liye. Taaki code mein directly nahi likhna pade.</p>
+  <div class="code">from dotenv import load_dotenv
+import os
+
+load_dotenv()  # .env file padho
+
+secret = os.getenv("SECRET_KEY")  # value lo
+print(secret)  # mysecret</div>
+
+  <!-- Pydantic -->
+  <h3>✅ Pydantic</h3>
+  <p><strong>Kya hai:</strong> Data validate karne ke liye. Jaise agar koi email field mein "abc" bheje (jo valid email nahi), toh Pydantic automatically error de deta hai.</p>
+  <div class="code">from pydantic import BaseModel, EmailStr
+
+class RegisterRequest(BaseModel):
+    naam: str
+    email: EmailStr   # valid email hona chahiye
+    password: str
+
+# Agar koi galat data bheje toh FastAPI khud error return karega
+# {"detail": "value is not a valid email address"}</div>
+
+  <!-- Passlib + bcrypt -->
+  <h3>🔑 Passlib + bcrypt</h3>
+  <p><strong>Kya hai:</strong> Password ko hash karne ke liye — matlab plain password ko ek aisi string mein badalna jo wapas nahi padhi ja sake. Database mein kabhi plain password nahi rakhte.</p>
+  <div class="code">from passlib.context import CryptContext
+
+pwd = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+# Hash banana
+hashed = pwd.hash("mera_password123")
+print(hashed)
+# $2b$12$abc...xyz (yeh store hoga database mein)
+
+# Verify karna
+result = pwd.verify("mera_password123", hashed)
+print(result)  # True</div>
+  <div class="warn">⚠️ Hash ek taraf ka kaam hai — hash se original password nahi nikala ja sakta. Isliye secure hai!</div>
+
+  <!-- python-jose -->
+  <h3>🎫 python-jose (JWT)</h3>
+  <p><strong>Kya hai:</strong> JWT (JSON Web Token) banane ke liye. Login ke baad user ko ek token milta hai — jab bhi woh koi protected API call kare, yeh token bhejta hai taaki server jaane ki woh logged in hai.</p>
+  <div class="code">from jose import jwt
+from datetime import datetime, timedelta
+
+SECRET = "mysecret"
+
+# Token banana
+payload = {"sub": "ali@gmail.com", "exp": datetime.utcnow() + timedelta(minutes=30)}
+token = jwt.encode(payload, SECRET, algorithm="HS256")
+print(token)  # eyJhbGci... (yeh token user ko milta hai)
+
+# Token decode karna
+data = jwt.decode(token, SECRET, algorithms=["HS256"])
+print(data["sub"])  # ali@gmail.com</div>
+  <div class="info">💡 JWT token ek sealed envelope jaisa hai — andar data hai, aur sirf sahi key se khul sakta hai.</div>
+
+  <!-- fastapi-mail -->
+  <h3>📧 fastapi-mail</h3>
+  <p><strong>Kya hai:</strong> FastAPI se email bhejne ke liye. Hamare project mein OTP email pe bheja jata hai isi library se.</p>
+  <div class="code">from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
+
+conf = ConnectionConfig(
+    MAIL_USERNAME="example@gmail.com",
+    MAIL_PASSWORD="app-password",
+    MAIL_FROM="example@gmail.com",
+    MAIL_PORT=587,
+    MAIL_SERVER="smtp.gmail.com",
+    MAIL_STARTTLS=True,
+    MAIL_SSL_TLS=False,
+    USE_CREDENTIALS=True,
+)
+
+async def email_bhejo(to_email, otp):
+    message = MessageSchema(
+        subject="Tumhara OTP",
+        recipients=[to_email],
+        body=f"Tumhara OTP hai: {otp}",
+        subtype="plain",
+    )
+    fm = FastMail(conf)
+    await fm.send_message(message)</div>
+
+  <hr/>
+
+  <!-- SECTION 6 -->
+  <h2>6. Python mein Special Cheezein — Jo Project mein Use Hui</h2>
+
+  <h3>📌 Optional — Value ho ya na ho</h3>
+  <div class="code">from typing import Optional
+
+def kuch_karo(naam: str, umar: Optional[int] = None):
+    if umar:
+        print(f"{naam} ki umar {umar} hai")
+    else:
+        print(f"{naam} ki umar nahi pata")</div>
+
+  <h3>📌 datetime — Date aur Time</h3>
+  <div class="code">from datetime import datetime, timedelta
+
+abhi = datetime.utcnow()           # abhi ka time (UTC)
+baad_mein = abhi + timedelta(minutes=10)  # 10 minute baad
+
+print(abhi)       # 2024-01-01 12:00:00
+print(baad_mein)  # 2024-01-01 12:10:00</div>
+
+  <h3>📌 random — Random number banana</h3>
+  <div class="code">import random
+
+otp = str(random.randint(100000, 999999))
+print(otp)  # 483920 (koi bhi 6 digit number)</div>
+
+  <h3>📌 HTTPException — Error return karna</h3>
+  <div class="code">from fastapi import HTTPException
+
+# Agar user nahi mila toh error bhejo
+raise HTTPException(status_code=404, detail="User nahi mila")</div>
+  <table>
+    <tr><th>Status Code</th><th>Matlab</th></tr>
+    <tr><td>200</td><td>Sab theek hai ✅</td></tr>
+    <tr><td>400</td><td>Tumne galat data bheja ❌</td></tr>
+    <tr><td>401</td><td>Login nahi kiya 🔒</td></tr>
+    <tr><td>403</td><td>Permission nahi hai 🚫</td></tr>
+    <tr><td>404</td><td>Cheez nahi mili 🔍</td></tr>
+    <tr><td>500</td><td>Server mein kuch gadbad 💥</td></tr>
+  </table>
+
+  <hr/>
+
+  <!-- SECTION 7 -->
+  <h2>7. Poora Project Ek Nazar Mein — Kaise Sab Milta Hai</h2>
+  <div class="info">
+    <strong>User request bhejta hai</strong><br/>
+    ↓ FastAPI route receive karta hai<br/>
+    ↓ Pydantic data validate karta hai<br/>
+    ↓ Controller function chalta hai<br/>
+    ↓ Motor se MongoDB mein data save/read hota hai<br/>
+    ↓ fastapi-mail se OTP email jata hai<br/>
+    ↓ passlib se password hash hota hai<br/>
+    ↓ python-jose se JWT token banta hai<br/>
+    ↓ Response user ko wapas jata hai
+  </div>
+
+  <hr/>
+
+  <!-- SECTION 8 -->
+  <h2>8. Seekhne ka Order — Kahan Se Shuru Karein</h2>
+  <table>
+    <tr><th>Step</th><th>Kya Seekho</th><th>Kitna Time</th></tr>
+    <tr><td>1</td><td>Python basics — variables, loops, functions, if-else</td><td>1-2 hafte</td></tr>
+    <tr><td>2</td><td>Classes aur OOP (Object Oriented Programming)</td><td>1 hafte</td></tr>
+    <tr><td>3</td><td>Async/Await concept</td><td>3-4 din</td></tr>
+    <tr><td>4</td><td>FastAPI — simple API banana</td><td>1 hafte</td></tr>
+    <tr><td>5</td><td>MongoDB + Motor</td><td>1 hafte</td></tr>
+    <tr><td>6</td><td>JWT, Hashing, Email — security concepts</td><td>1 hafte</td></tr>
+  </table>
+  <div class="tip">💡 Best resource: <strong>python.org/doc</strong> aur <strong>fastapi.tiangolo.com</strong> — dono free hain!</div>
+
+  <p style="margin-top:36px;color:#888;font-size:0.88rem;text-align:center;">
+    Generated by Kiro — Python Guide for Beginners (Hinglish)
+  </p>
+</div>
+</body>
+</html>
